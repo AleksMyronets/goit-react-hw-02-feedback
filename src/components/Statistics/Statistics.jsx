@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Listel,List,Number} from "./Statistics.styled"
+import { Listel,List,Number } from "./Statistics.styled"
 
 export const Statistics = ({
   good,

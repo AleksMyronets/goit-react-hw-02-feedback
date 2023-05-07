@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
-width:300px;
-margin:0 auto;
+width: 600px;
+margin: 0 auto;
 text-align: center;
 `;

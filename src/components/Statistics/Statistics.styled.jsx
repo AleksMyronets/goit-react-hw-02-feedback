@@ -5,14 +5,14 @@ export const List = styled.ul`
 `;
 
 export const Listel = styled.li`
-  margin-top: 10px;
+  margin-top: 15px;
   list-style: none;
-  font-size:20px;
+  font-size: 30px;
 `;
 
 export const Number = styled.span`
-margin-top:5px;
-display:block;
-font-size: 20px ;
-color:green;
+margin-top: 5px;
+display: block;
+font-size: 30px ;
+color: blue;
 `;
