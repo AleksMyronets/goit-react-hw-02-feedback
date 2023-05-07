@@ -1,27 +1,56 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './FeedbackWidget.module.css';
+import { Component } from 'react';
+import { Statistics } from '../Statistics';
+import { FeedbackOptions } from '../FeedbackOptions';
+import { Section } from '../Section';
+import { Notification } from '../Notification';
 
-const FeedbackWidget = ({ good, neutral, bad }) => {
-  return (
-    <div className={styles.feedbackWidget}>
-      <div>
-        <span>Good: {good}</span>
-      </div>
-      <div>
-        <span>Neutral: {neutral}</span>
-      </div>
-      <div>
-        <span>Bad: {bad}</span>
-      </div>
-    </div>
-  );
-};
+export class Feedback extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-FeedbackWidget.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-};
+  onLeaveFeedback = event => {
+    const { name } = event.currentTarget;
+    this.setState(prevState => ({
+      [name]: prevState[name] + 1,
+    }));
+  };
 
-export default FeedbackWidget;
+  countTotalFeedback = () => {
+    return this.state.good + this.state.neutral + this.state.bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const total = this.state.good + this.state.neutral + this.state.bad;
+
+    return Math.round((this.state.good / total) * 100);
+  };
+
+  render() {
+    return (
+      <div>
+        <Section title="Please, leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
+        </Section>
+        <Section title="Statistics">
+          {this.countTotalFeedback() > 0 ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification massage="There is no feedback" />
+          )}
+        </Section>
+      </div>
+    );
+  }
+}
